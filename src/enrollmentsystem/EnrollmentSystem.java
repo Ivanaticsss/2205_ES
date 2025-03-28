@@ -8,13 +8,13 @@ package enrollmentsystem;
  *
  * @author ACER
  */
+
 public class EnrollmentSystem {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Open the Login Frame when the application starts
+        Login loginScreen = new Login();
+        loginScreen.setVisible(true);
     }
-    
 }
+

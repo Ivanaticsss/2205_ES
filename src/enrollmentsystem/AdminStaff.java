@@ -27,14 +27,13 @@ public class AdminStaff extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnManageEnrollment = new javax.swing.JButton();
+        btnManageCourseAndSubject = new javax.swing.JButton();
+        btnManageFacultyAndSchedules = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -46,23 +45,38 @@ public class AdminStaff extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 0, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("🆕 Manage Student Enrollment");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 470, 40));
+        btnManageEnrollment.setText("🆕 Manage Student Enrollment");
+        btnManageEnrollment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageEnrollmentActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnManageEnrollment, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, 470, 40));
 
-        jButton2.setText("📚 Manage Courses & Subjects");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 470, 40));
+        btnManageCourseAndSubject.setText("📚 Manage Courses & Subjects");
+        btnManageCourseAndSubject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageCourseAndSubjectActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnManageCourseAndSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, 470, 40));
 
-        jButton3.setText("🧑‍🏫 Faculty & Class Schedules");
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, 470, 40));
+        btnManageFacultyAndSchedules.setText("🧑‍🏫 Faculty & Class Schedules");
+        btnManageFacultyAndSchedules.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageFacultyAndSchedulesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnManageFacultyAndSchedules, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, 470, 40));
 
         jButton4.setText("💰 Process Payments & Billing");
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, 470, 40));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, 470, 40));
 
         jButton5.setText("📊 Enrollment Reports ");
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 470, 40));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 470, 40));
 
         jButton6.setText("🖨 Generate Official Documents");
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, 470, 40));
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 470, 40));
 
         jButton7.setText("🔓 Logout");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -70,13 +84,10 @@ public class AdminStaff extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 510, 470, 40));
-
-        jButton8.setText("🛠 Admin / Staff Dashboard");
-        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 470, 40));
+        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 470, 40));
 
         jButton9.setText("⚙️ System Settings");
-        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 450, 470, 40));
+        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 420, 470, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 1320, 580));
 
@@ -99,6 +110,24 @@ public class AdminStaff extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void btnManageEnrollmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnrollmentActionPerformed
+        ManageStudentEnrollment manageEnrollment = new ManageStudentEnrollment();
+        manageEnrollment.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnManageEnrollmentActionPerformed
+
+    private void btnManageCourseAndSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageCourseAndSubjectActionPerformed
+        ManageCourseAndSubject manageCourseAndSubject = new ManageCourseAndSubject();
+        manageCourseAndSubject.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnManageCourseAndSubjectActionPerformed
+
+    private void btnManageFacultyAndSchedulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFacultyAndSchedulesActionPerformed
+        ManageFacultyAndSchedules manageFacultyAndSchedules = new ManageFacultyAndSchedules();
+        manageFacultyAndSchedules.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnManageFacultyAndSchedulesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,14 +165,13 @@ public class AdminStaff extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnManageCourseAndSubject;
+    private javax.swing.JButton btnManageEnrollment;
+    private javax.swing.JButton btnManageFacultyAndSchedules;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

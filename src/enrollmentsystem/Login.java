@@ -4,8 +4,6 @@
  */
 package enrollmentsystem;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,9 +13,7 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
-        
         setLocationRelativeTo(null); // Center the window
-        btnLogin.addActionListener(new LoginAction()); // Add action listener to button
     }
 
     /**
@@ -99,70 +95,73 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+          String username = jTextField1.getText();
+    String password = new String(jPasswordField1.getPassword());
+
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter both username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String role = authenticateUser(username, password);
+    
+    // Debug print to check retrieved role
+    System.out.println("Retrieved Role: '" + role + "'");
+
+    if (role != null) {
+        JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + username);
+        dispose();
+
+        // Normalize the role (convert to lowercase and trim spaces)
+        switch (role.toLowerCase().trim()) { 
+            case "regular_student":
+                new RegularStudent().setVisible(true);
+                break;
+            case "irregular_student":
+                new IrregularStudent().setVisible(true);
+                break;
+            case "admin_staff":
+            case "admin": // Added this case
+                new AdminStaff().setVisible(true);
+                break;
+            case "department_head":
+                new Head().setVisible(true);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Unknown role: " + role, "Login Failed", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-     private class LoginAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String username = jTextField1.getText();
-            String password = new String(jPasswordField1.getPassword());
+   private String authenticateUser(String username, String password) {
+    String query = "SELECT role FROM users WHERE username = ? AND password = ?";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            if (authenticateUser(username, password)) {
-                JOptionPane.showMessageDialog(null, "Login Successful! Welcome " + username);
-                dispose(); // Close login form
-                // Open dashboard or next frame (Example: new Dashboard().setVisible(true));
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid Username or Password", "Login Failed", JOptionPane.ERROR_MESSAGE);
-            }
+        stmt.setString(1, username);
+        stmt.setString(2, password);
+
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            String retrievedRole = rs.getString("role");
+            System.out.println("Database Role Retrieved: '" + retrievedRole + "'"); // Debug print
+            return retrievedRole;
         }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-     
-      private boolean authenticateUser(String username, String password) {
-        String query = "SELECT * FROM students WHERE sr_code = ? AND password = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+    return null;
+}
 
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-
-            ResultSet rs = stmt.executeQuery();
-            return rs.next(); // If user exists, return true
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
-            return false;
-        }
-    }
+ 
     
-    /**
+     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
